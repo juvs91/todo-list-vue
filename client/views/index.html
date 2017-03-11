@@ -1,0 +1,27 @@
+<html>
+	<head>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script
+  		src="https://code.jquery.com/jquery-2.2.4.min.js"
+  		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  		crossorigin="anonymous"></script>
+  	<script src="./../js/utils.js"></script>
+  	<script src="./../js/config.js"></script>
+  	<script src="./../js/services.js"></script>
+  	<script src="./../js/taskData.js"></script>
+	<script src="./../js/todo.js"></script>
+	<script src="./../js/taskListTemplate.js"></script>
+	<script src="./../test/testTodo.js"></script>
+	</head>
+	<body>
+		<header>
+			<h1>Todo list</h1>
+		</header>
+		<section id="container">
+			<input type="text" class="js_task_input" placeholder="enter a new task" v-on:keyup.enter="createTask">
+			<ul class="todo-list">
+				<task-list v-for="task in tasks" v-bind:task="task"></task-list>
+			</ul>
+		</section>
+	</body>
+</html>
