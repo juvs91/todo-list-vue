@@ -1,38 +1,39 @@
-((window,$)=>{
-	let services = window.services || {};
-	services.actions = {
-		createAjaxCall : (contentType, data, url, method) => {
-				return $.ajax({
-					"headers" : {
-
-					},
-					"method": method,
-					"contentType": contentType,
-					"url": url,
-					"data": data
-				}).promise();
+import config from "./config.js";
+import Vue from "vue";
+export default{
+		getItems (success,fail){
+			let callBacks = this.checkCallCabckFunctions(success,fail);
+			return Vue.http.get(config.server+config.taskRoute,
+								{"headers" : config.httpHeader, "credentials" : config.httpCredentials, "timeout" : config.timeout}
+								).then(callBacks[0],callBacks[1]);
 		},
-		getItems : (success,fail)=>{
-			let callBacks = services.actions.checkCallCabckFunctions(success,fail);
-			$.when(createAjaxCall("application/json", {}, "localhost:8080/items", "GET")).then(callBacks[0],callBacks[1]);
+		getItem  (id,success,fail) {
+			let callBacks = this.checkCallCabckFunctions(success,fail);
+			return Vue.http.get(config.server+config.taskRoute+"/"+id,
+								{"headers" : config.httpHeader, "credentials" : config.httpCredentials, "timeout" : config.timeout}
+								).then(callBacks[0],callBacks[1]);
 		},
-		getItem : (id,success,fail) =>{
-			let callBacks = services.actions.checkCallCabckFunctions(success,fail);
-			$.when(createAjaxCall("application/json", id, "localhost:8080/item", "GET")).then(callBacks[0],callBacks[1]);
+		deleteItem  (id,success,fail) {
+			let callBacks = this.checkCallCabckFunctions(success,fail);
+			return Vue.http.delete(config.server+config.taskRoute+"/"+id,
+									{"headers" : config.httpHeader, "credentials" : config.httpCredentials, "timeout" : config.timeout}
+									).then(callBacks[0],callBacks[1]);
 		},
-		deleItem : (id,success,fail) =>{
-			let callBacks = services.actions.checkCallCabckFunctions(success,fail);
-			$.when(createAjaxCall("application/json", id, "localhost:8080/item", "DELETE")).then(callBacks[0],callBacks[1]);
+		createItem (item,success,fail) {
+			let callBacks = this.checkCallCabckFunctions(success,fail);
+			return Vue.http.post(config.server+config.taskRoute,
+								item,
+								{"headers" : config.httpHeader, "credentials" : config.httpCredentials, "timeout" : config.timeout}
+								).then(callBacks[0],callBacks[1]);
 		},
-		createItem : (item,success,fail) =>{
-			let callBacks = services.actions.checkCallCabckFunctions(success,fail);
-			$.when(createAjaxCall("application/json", item, "localhost:8080/item","POST")).then(callBacks[0],callBacks[1]);
+		updateItem (item,success,fail){
+			let callBacks = this.checkCallCabckFunctions(success,fail);
+			return Vue.http.patch(config.server+config.taskRoute,
+								 item,
+								 {"headers" : config.httpHeader, "credentials" : config.httpCredentials, "timeout" : config.timeout}
+								 ).then(callBacks[0],callBacks[1]);
 		},
-		updateItem : (item,success,fail) =>{
-			let callBacks = services.actions.checkCallCabckFunctions(success,fail);
-			$.when(createAjaxCall("application/json", item, "localhost:8080/item", "PATCH")).then(callBacks[0],callBacks[1]);
-		},
-		checkCallCabckFunctions : (success,fail)=>{
+		checkCallCabckFunctions (success,fail){
 			if (typeof success !== "function") {
 				success = function () {
 					console.log("the operation was a success");
@@ -45,8 +46,4 @@
 			}
 			return [success,fail];
 		}
-	}
-	if(typeof window.services == "undefined"){
-		window.services = services;
-	}
-})(window,$,undefined);
+}

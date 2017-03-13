@@ -1,24 +1,25 @@
-((window,Vue)=>{
-	if(typeof Vue === "undefined"){
-		console.error("need Vue to operate");
-		throw "Vue undefined";
-	}
-
-	let config = window.config || {};
-
-	config = {
+export default {
 		vue : {
 			components : {},
 		},
-		server : "localhost:8080",
+		httpHeader : {
+			"accept": "application/json",
+			"content-type": "application/json",
+			"cache-control": "no-cache",
+		},
+		httpCredentials : false,
+		httpTimeout : 300,
+		server : "http://localhost:3000/api",
 		jsonDataType : "application/json",
 		httpGet : "GET",
 		httpPost : "POST",
 		httpDelete : "DELETE",
 		httpUpdate : "UPDATE",
-		httpPatch  : "PATCH"
-	};
-	if(typeof window.config == "undefined"){
-		window.config = config;
-	}
-})(window,Vue,undefined);
+		httpPatch  : "PATCH",
+		taskRoute : "/y",
+		routes : {
+			task: {
+
+			}
+		}
+}
