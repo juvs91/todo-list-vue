@@ -8495,11 +8495,6 @@ let config = {
 	httpTimeout : 300,
 	server : "http://localhost:3000/api",
 	jsonDataType : "application/json",
-	httpGet : "GET",
-	httpPost : "POST",
-	httpDelete : "DELETE",
-	httpUpdate : "UPDATE",
-	httpPatch  : "PATCH",
 	taskRoute : "/y",
 	routes : {
 		tasks : "",
@@ -8519,7 +8514,7 @@ config.routes.buildedRoute = config.routes.tasks;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _taskItem = __webpack_require__(9);
@@ -8552,59 +8547,64 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var todoApp = {};
 todoApp.callBacks = {
-	successGetAllTasks: function successGetAllTasks(tasks) {
-		this.tasks = tasks.body;
-		/*for (var i = tasks.body.length - 1; i >= 0; i--) {
-  	this.todoApp.vue.$data.tasks.push(tasks.body[i]);
-  }*/
-		console.log("success, get all task");
-	},
-	failGetAllTasks: function failGetAllTasks() {
-		console.log("fail, get all task");
-	},
-	successCreateTask: function successCreateTask(task) {
-		this.tasks.push(task.body);
-	},
-	failCreateTask: function failCreateTask() {
-		console.log("fail creating the task");
-	}
+  successGetAllTasks: function successGetAllTasks(tasks) {
+    console.log(this.tasks);
+    this.tasks = tasks.body;
+    console.log("success, get all task");
+  },
+  failGetAllTasks: function failGetAllTasks() {
+    console.log("fail, get all task");
+  },
+  successCreateTask: function successCreateTask(task) {
+    console.log("pushing");
+    this.tasks.push(task.body);
+  },
+  failCreateTask: function failCreateTask() {
+    console.log("fail creating the task");
+  }
 };
 todoApp.generalFunctions = {
-	createTask: function createTask(e) {
-		if (e.keyCode === 13) {
-			var text = e.target.value.trim();
-			_services2.default.createItem({ "text": text, "state": 0 }, todoApp.callBacks.successCreateTask.bind(this), todoApp.callBacks.failCreateTask.bind(this));
-		}
-	},
-	deleteTask: function deleteTask(index) {
-		this.tasks.splice(index, 1);
-	},
-	updateTask: function updateTask(_ref) {
-		var task = _ref.task,
-		    index = _ref.index;
+  createTask: function createTask(e) {
+    if (e.keyCode === 13) {
+      var text = e.target.value.trim();
+      _services2.default.createItem({ "text": text, "state": 0 }, todoApp.callBacks.successCreateTask.bind(this), todoApp.callBacks.failCreateTask.bind(this));
+    }
+  },
+  deleteTask: function deleteTask(index) {
+    this.tasks.splice(index, 1);
+  },
+  updateTask: function updateTask(_ref) {
+    var task = _ref.task,
+        index = _ref.index;
 
-		this.tasks[index] = task;
-	},
-	changeDisplayTask: function changeDisplayTask(state) {
-		this.state = state;
-	}
+    this.tasks[index] = task;
+  },
+  changeDisplayTask: function changeDisplayTask(state) {
+    this.state = state;
+  },
+  getAllTasks: function getAllTasks() {
+    console.log("all items");
+    _services2.default.getItems(todoApp.callBacks.successGetAllTasks.bind(this), todoApp.callBacks.failGetAllTasks.bind(this));
+  }
 };
 var set = "asdfsad";
 exports.default = {
-	name: 'app',
-	data: function data() {
-		return {
-			tasks: [],
-			state: 2,
-			message: 'Welcome to Your Vue.js App'
-		};
-	},
+  name: 'app',
+  data: function data() {
+    return {
+      tasks: [],
+      state: 2,
+      message: 'Welcome to Your Vue.js App'
+    };
+  },
 
-	components: { taskItem: _taskItem2.default },
-	methods: todoApp.generalFunctions,
-	mounted: function mounted() {
-		_services2.default.getItems(todoApp.callBacks.successGetAllTasks.bind(this), todoApp.callBacks.failGetAllTasks.bind(this));
-	}
+  components: { taskItem: _taskItem2.default },
+  methods: todoApp.generalFunctions,
+  mounted: function mounted() {
+    todoApp.generalFunctions.getAllTasks.bind(this);
+    todoApp.generalFunctions.getAllTasks.bind(this)();
+    //services.getItems(todoApp.callBacks.successGetAllTasks.bind(this),todoApp.callBacks.failGetAllTasks.bind(this));
+  }
 };
 
 /***/ }),
@@ -8668,14 +8668,14 @@ var callBacksForTask = {
 	},
 	finishSuccess: function finishSuccess() {
 		//show error message 
-		console.log("succes");
+		console.log("finish succes");
 		this.item.state = 1;
+		console.log(this.item);
 	}
 };
 var eventsForTask = {
 	deleteItem: function deleteItem(t) {
 		//todo remove the element in the DB and if it's success remove it from DOM
-		console.log("delete the dom element");
 		console.log(t);
 		_services2.default.deleteItem(t.id, callBacksForTask.deletedSuccess.bind(this), callBacksForTask.deletedFail);
 	},
@@ -8687,9 +8687,9 @@ var eventsForTask = {
 		this.editable = true;
 	},
 	finishTask: function finishTask(t) {
-		console.log("finish");
+		console.log("finish  asf");
 		var task = taskListTemplate.buildTask(t.id, 1, t.text.trim());
-		_services2.default.updateItem(task, callBacksForTask.finishSuccess.bind(this), callBacksForTask.updatedFail);
+		_services2.default.updateItem(task, callBacksForTask.finishSuccess.bind(this), callBacksForTask.finishFail);
 	}
 };
 var computedFunctions = {

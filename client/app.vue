@@ -22,10 +22,6 @@ let todoApp = {};
 todoApp.callBacks = {
 	successGetAllTasks (tasks) {
 		this.tasks = tasks.body;
-		/*for (var i = tasks.body.length - 1; i >= 0; i--) {
-			this.todoApp.vue.$data.tasks.push(tasks.body[i]);
-		}*/
-		console.log("success, get all task");
 	},
 	failGetAllTasks() {
 		console.log("fail, get all task");	
@@ -52,6 +48,9 @@ todoApp.generalFunctions = {
   	},
   	changeDisplayTask(state){
   		this.state = state;
+  	},
+  	getAllTasks(){
+  		services.getItems(todoApp.callBacks.successGetAllTasks.bind(this),todoApp.callBacks.failGetAllTasks.bind(this));
   	}
 };
 let set = "asdfsad";
@@ -67,7 +66,8 @@ export default {
   components : {taskItem},
   methods : todoApp.generalFunctions,
   mounted () {
-	services.getItems(todoApp.callBacks.successGetAllTasks.bind(this),todoApp.callBacks.failGetAllTasks.bind(this));
+  	todoApp.generalFunctions.getAllTasks.bind(this)();
+	//services.getItems(todoApp.callBacks.successGetAllTasks.bind(this),todoApp.callBacks.failGetAllTasks.bind(this));
    }
 }
 </script>

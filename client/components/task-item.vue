@@ -45,15 +45,13 @@
 		},
 		finishSuccess(){
 			//show error message 
-			console.log("succes");
+			console.log("finish succes");
 			this.item.state = 1;
 		}
 	};
 	let eventsForTask = {
 		deleteItem (t){
 			//todo remove the element in the DB and if it's success remove it from DOM
-			console.log("delete the dom element");
-			console.log(t);
 			services.deleteItem(t.id,callBacksForTask.deletedSuccess.bind(this),callBacksForTask.deletedFail);
 			
 		},
@@ -65,9 +63,8 @@
 			this.editable = true;
 		},
 		finishTask (t) {
-			console.log("finish");
 			let task = taskListTemplate.buildTask(t.id,1,t.text.trim());
-			services.updateItem(task,callBacksForTask.finishSuccess.bind(this),callBacksForTask.updatedFail);			
+			services.updateItem(task,callBacksForTask.finishSuccess.bind(this),callBacksForTask.finishFail);			
 		}
 	};
 	let computedFunctions = {

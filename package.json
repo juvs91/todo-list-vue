@@ -5,10 +5,11 @@
   "scripts": {
     "babel": "babel --presets es2015 client/js/main.js -o build/main.bundle.js",
     "start": "http-server",
-    "test": "karma start --single-run karma.conf.js",
+    "test-front": "karma start --single-run karma.conf.js",
     "develop": "node_modules/karma/bin/karma start karma.conf.js",
     "webpack": "webpack",
-    "build": "rimraf dist && webpack --config webpack.config.js --display-error-details --colors --progress"
+    "build": "rimraf dist && webpack --config webpack.config.js --display-error-details --colors --progress",
+    "test-back" : "./node_modules/mocha/bin/mocha test/task.test.js"
   },
   "dependencies": {
     "compression": "^1.0.3",
