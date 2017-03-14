@@ -8548,15 +8548,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var todoApp = {};
 todoApp.callBacks = {
   successGetAllTasks: function successGetAllTasks(tasks) {
-    console.log(this.tasks);
     this.tasks = tasks.body;
-    console.log("success, get all task");
   },
   failGetAllTasks: function failGetAllTasks() {
     console.log("fail, get all task");
   },
   successCreateTask: function successCreateTask(task) {
-    console.log("pushing");
     this.tasks.push(task.body);
   },
   failCreateTask: function failCreateTask() {
@@ -8583,7 +8580,6 @@ todoApp.generalFunctions = {
     this.state = state;
   },
   getAllTasks: function getAllTasks() {
-    console.log("all items");
     _services2.default.getItems(todoApp.callBacks.successGetAllTasks.bind(this), todoApp.callBacks.failGetAllTasks.bind(this));
   }
 };
@@ -8601,7 +8597,6 @@ exports.default = {
   components: { taskItem: _taskItem2.default },
   methods: todoApp.generalFunctions,
   mounted: function mounted() {
-    todoApp.generalFunctions.getAllTasks.bind(this);
     todoApp.generalFunctions.getAllTasks.bind(this)();
     //services.getItems(todoApp.callBacks.successGetAllTasks.bind(this),todoApp.callBacks.failGetAllTasks.bind(this));
   }
@@ -8670,13 +8665,11 @@ var callBacksForTask = {
 		//show error message 
 		console.log("finish succes");
 		this.item.state = 1;
-		console.log(this.item);
 	}
 };
 var eventsForTask = {
 	deleteItem: function deleteItem(t) {
 		//todo remove the element in the DB and if it's success remove it from DOM
-		console.log(t);
 		_services2.default.deleteItem(t.id, callBacksForTask.deletedSuccess.bind(this), callBacksForTask.deletedFail);
 	},
 	updateTask: function updateTask() {
@@ -8687,7 +8680,6 @@ var eventsForTask = {
 		this.editable = true;
 	},
 	finishTask: function finishTask(t) {
-		console.log("finish  asf");
 		var task = taskListTemplate.buildTask(t.id, 1, t.text.trim());
 		_services2.default.updateItem(task, callBacksForTask.finishSuccess.bind(this), callBacksForTask.finishFail);
 	}
