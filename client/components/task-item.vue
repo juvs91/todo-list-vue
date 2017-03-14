@@ -1,6 +1,8 @@
 <template>
 	<li  class='js_taks' v-show="showItem"> 
 		<span @click='changeTaskToEditable(item)' v-show:editable="!editable"> {{item.text}}</span> 
+		<span v-if="item.state === 0"> doing</span>
+		<span v-if="item.state !== 0"> finished</span>
 		<input type="text" v-show:editable="editable" v-bind:value="item.text" v-on:blur="updateTask">
 		<button class='js_finish' @click='finishTask(item)'>finish</button>   
 		<button class='js_delete' @click='deleteItem(item)'>delete</button> 

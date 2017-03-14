@@ -5,9 +5,10 @@
   "scripts": {
     "babel": "babel --presets es2015 client/js/main.js -o build/main.bundle.js",
     "start": "http-server",
-    "test": "node_modules/karma/bin/karma --singleRun=true start karma.conf.js",
+    "test": "karma start --single-run karma.conf.js",
     "develop": "node_modules/karma/bin/karma start karma.conf.js",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "build": "rimraf dist && webpack --config webpack.config.js --display-error-details --colors --progress"
   },
   "dependencies": {
     "compression": "^1.0.3",
@@ -33,12 +34,16 @@
     "eslint": "^2.13.1",
     "eslint-config-loopback": "^4.0.0",
     "http-server": "^0.9.0",
-    "jasmine-core": "^2.2.0",
-    "karma": "^0.12.37",
+    "jasmine-core": "^2.5.2",
+    "karma": "^0.13.3",
+    "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^0.1.7",
-    "karma-jasmine": "^0.3.5",
+    "karma-jasmine": "^0.3.8",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-qunit": "^1.2.1",
+    "karma-webpack": "^2.0.2",
     "nsp": "^2.1.0",
+    "phantomjs": "^2.1.7",
     "vue-loader": "^11.1.4",
     "vue-template-compiler": "^2.2.2",
     "webpack": "^2.2.1"

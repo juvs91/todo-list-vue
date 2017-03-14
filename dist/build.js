@@ -71,8 +71,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process, global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/*!
+/* WEBPACK VAR INJECTION */(function(process, global) {/*!
  * Vue.js v2.2.2
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
@@ -6792,65 +6791,66 @@ setTimeout(function () {
   }
 }, 0);
 
-/* harmony default export */ __webpack_exports__["default"] = Vue$2;
+/* harmony default export */ __webpack_exports__["a"] = Vue$2;
 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(8), __webpack_require__(12)))
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(0);
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _config = __webpack_require__(5);
-
-var _config2 = _interopRequireDefault(_config);
-
-var _vue = __webpack_require__(0);
-
-var _vue2 = _interopRequireDefault(_vue);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-	getItems: function getItems(success, fail) {
-		var callBacks = this.checkCallCabckFunctions(success, fail);
-		return _vue2.default.http.get(_config2.default.server + _config2.default.taskRoute, { "headers": _config2.default.httpHeader, "credentials": _config2.default.httpCredentials, "timeout": _config2.default.timeout }).then(callBacks[0], callBacks[1]);
-	},
-	getItem: function getItem(id, success, fail) {
-		var callBacks = this.checkCallCabckFunctions(success, fail);
-		return _vue2.default.http.get(_config2.default.server + _config2.default.taskRoute + "/" + id, { "headers": _config2.default.httpHeader, "credentials": _config2.default.httpCredentials, "timeout": _config2.default.timeout }).then(callBacks[0], callBacks[1]);
-	},
-	deleteItem: function deleteItem(id, success, fail) {
-		var callBacks = this.checkCallCabckFunctions(success, fail);
-		return _vue2.default.http.delete(_config2.default.server + _config2.default.taskRoute + "/" + id, { "headers": _config2.default.httpHeader, "credentials": _config2.default.httpCredentials, "timeout": _config2.default.timeout }).then(callBacks[0], callBacks[1]);
-	},
-	createItem: function createItem(item, success, fail) {
-		var callBacks = this.checkCallCabckFunctions(success, fail);
-		return _vue2.default.http.post(_config2.default.server + _config2.default.taskRoute, item, { "headers": _config2.default.httpHeader, "credentials": _config2.default.httpCredentials, "timeout": _config2.default.timeout }).then(callBacks[0], callBacks[1]);
-	},
-	updateItem: function updateItem(item, success, fail) {
-		var callBacks = this.checkCallCabckFunctions(success, fail);
-		return _vue2.default.http.patch(_config2.default.server + _config2.default.taskRoute, item, { "headers": _config2.default.httpHeader, "credentials": _config2.default.httpCredentials, "timeout": _config2.default.timeout }).then(callBacks[0], callBacks[1]);
-	},
-	checkCallCabckFunctions: function checkCallCabckFunctions(success, fail) {
-		if (typeof success !== "function") {
-			success = function success() {
-				console.log("the operation was a success");
-			};
+/* harmony default export */ __webpack_exports__["default"] = {
+		getItems (success,fail){
+			let callBacks = this.checkCallCabckFunctions(success,fail);
+			return __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].http.get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].routes.buildedRoute,
+								{"headers" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].httpHeader, "credentials" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].httpCredentials, "timeout" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].timeout}
+								).then(callBacks[0],callBacks[1]);
+		},
+		getItem  (id,success,fail) {
+			let callBacks = this.checkCallCabckFunctions(success,fail);
+			return __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].http.get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].routes.buildedRoute+"/"+id,
+								{"headers" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].httpHeader, "credentials" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].httpCredentials, "timeout" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].timeout}
+								).then(callBacks[0],callBacks[1]);
+		},
+		deleteItem  (id,success,fail) {
+			let callBacks = this.checkCallCabckFunctions(success,fail);
+			return __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].http.delete(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].routes.buildedRoute+"/"+id,
+									{"headers" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].httpHeader, "credentials" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].httpCredentials, "timeout" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].timeout}
+									).then(callBacks[0],callBacks[1]);
+		},
+		createItem (item,success,fail) {
+			let callBacks = this.checkCallCabckFunctions(success,fail);
+			return __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].http.post(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].routes.buildedRoute,
+								item,
+								{"headers" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].httpHeader, "credentials" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].httpCredentials, "timeout" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].timeout}
+								).then(callBacks[0],callBacks[1]);
+		},
+		updateItem (item,success,fail){
+			let callBacks = this.checkCallCabckFunctions(success,fail);
+			return __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].http.patch(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].routes.buildedRoute,
+								 item,
+								 {"headers" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].httpHeader, "credentials" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].httpCredentials, "timeout" : __WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */].timeout}
+								 ).then(callBacks[0],callBacks[1]);
+		},
+		checkCallCabckFunctions (success,fail){
+			if (typeof success !== "function") {
+				success = function () {
+					console.log("the operation was a success");
+				}
+			}
+			if (typeof fail !== "function") {
+				fail = function () {
+					console.log("the operation was a fail");
+				}
+			}
+			return [success,fail];
 		}
-		if (typeof fail !== "function") {
-			fail = function fail() {
-				console.log("the operation was a fail");
-			};
-		}
-		return [success, fail];
-	}
 };
 
 /***/ }),
@@ -8478,37 +8478,38 @@ module.exports = plugin;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = {
-	vue: {
-		components: {}
+//the route buildedRoute is the one that should be updated dinamically to point to diferent services
+let config = {
+	vue : {
+		components : {},
 	},
-	httpHeader: {
+	httpHeader : {
 		"accept": "application/json",
 		"content-type": "application/json",
-		"cache-control": "no-cache"
+		"cache-control": "no-cache",
 	},
-	httpCredentials: false,
-	httpTimeout: 300,
-	server: "http://localhost:3000/api",
-	jsonDataType: "application/json",
-	httpGet: "GET",
-	httpPost: "POST",
-	httpDelete: "DELETE",
-	httpUpdate: "UPDATE",
-	httpPatch: "PATCH",
-	taskRoute: "/y",
-	routes: {
-		task: {}
+	httpCredentials : false,
+	httpTimeout : 300,
+	server : "http://localhost:3000/api",
+	jsonDataType : "application/json",
+	httpGet : "GET",
+	httpPost : "POST",
+	httpDelete : "DELETE",
+	httpUpdate : "UPDATE",
+	httpPatch  : "PATCH",
+	taskRoute : "/y",
+	routes : {
+		tasks : "",
+		buildedRoute: ""
 	}
-};
+}
+config.routes.tasks = config.server+config.taskRoute;
+config.routes.buildedRoute = config.routes.tasks;
+
+/* harmony default export */ __webpack_exports__["a"] = config;
 
 /***/ }),
 /* 6 */
@@ -8624,6 +8625,8 @@ var _services2 = _interopRequireDefault(_services);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var taskListTemplate = {}; //
+//
+//
 //
 //
 //
@@ -9022,7 +9025,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.changeTaskToEditable(_vm.item)
       }
     }
-  }, [_vm._v(" " + _vm._s(_vm.item.text))]), _vm._v(" "), _c('input', {
+  }, [_vm._v(" " + _vm._s(_vm.item.text))]), _vm._v(" "), (_vm.item.state === 0) ? _c('span', [_vm._v(" doing")]) : _vm._e(), _vm._v(" "), (_vm.item.state !== 0) ? _c('span', [_vm._v(" finished")]) : _vm._e(), _vm._v(" "), _c('input', {
     directives: [{
       name: "show",
       rawName: "v-show:editable",
@@ -9098,32 +9101,24 @@ module.exports = g;
 
 /***/ }),
 /* 14 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_resource__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_resource___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_resource__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__app_vue__);
 
 
-var _vue = __webpack_require__(0);
 
-var _vue2 = _interopRequireDefault(_vue);
-
-var _vueResource = __webpack_require__(4);
-
-var _vueResource2 = _interopRequireDefault(_vueResource);
-
-var _app = __webpack_require__(3);
-
-var _app2 = _interopRequireDefault(_app);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_vue2.default.use(_vueResource2.default);
-new _vue2.default({
+__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_1_vue_resource___default.a);
+new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
   el: '#app',
-  render: function render(h) {
-    return h(_app2.default);
-  }
+  render: h => h(__WEBPACK_IMPORTED_MODULE_2__app_vue___default.a)
 });
+
 
 /***/ })
 /******/ ]);

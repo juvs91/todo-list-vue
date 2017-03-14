@@ -3,32 +3,32 @@ import Vue from "vue";
 export default{
 		getItems (success,fail){
 			let callBacks = this.checkCallCabckFunctions(success,fail);
-			return Vue.http.get(config.server+config.taskRoute,
+			return Vue.http.get(config.routes.buildedRoute,
 								{"headers" : config.httpHeader, "credentials" : config.httpCredentials, "timeout" : config.timeout}
 								).then(callBacks[0],callBacks[1]);
 		},
 		getItem  (id,success,fail) {
 			let callBacks = this.checkCallCabckFunctions(success,fail);
-			return Vue.http.get(config.server+config.taskRoute+"/"+id,
+			return Vue.http.get(config.routes.buildedRoute+"/"+id,
 								{"headers" : config.httpHeader, "credentials" : config.httpCredentials, "timeout" : config.timeout}
 								).then(callBacks[0],callBacks[1]);
 		},
 		deleteItem  (id,success,fail) {
 			let callBacks = this.checkCallCabckFunctions(success,fail);
-			return Vue.http.delete(config.server+config.taskRoute+"/"+id,
+			return Vue.http.delete(config.routes.buildedRoute+"/"+id,
 									{"headers" : config.httpHeader, "credentials" : config.httpCredentials, "timeout" : config.timeout}
 									).then(callBacks[0],callBacks[1]);
 		},
 		createItem (item,success,fail) {
 			let callBacks = this.checkCallCabckFunctions(success,fail);
-			return Vue.http.post(config.server+config.taskRoute,
+			return Vue.http.post(config.routes.buildedRoute,
 								item,
 								{"headers" : config.httpHeader, "credentials" : config.httpCredentials, "timeout" : config.timeout}
 								).then(callBacks[0],callBacks[1]);
 		},
 		updateItem (item,success,fail){
 			let callBacks = this.checkCallCabckFunctions(success,fail);
-			return Vue.http.patch(config.server+config.taskRoute,
+			return Vue.http.patch(config.routes.buildedRoute,
 								 item,
 								 {"headers" : config.httpHeader, "credentials" : config.httpCredentials, "timeout" : config.timeout}
 								 ).then(callBacks[0],callBacks[1]);
