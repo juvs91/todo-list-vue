@@ -20,8 +20,15 @@ describe("task-list",()=>{
     		}
     	});
     	compItem.$mount();
-    	compItem.finishTask(compItem.$data.item);
-    	setTimeout(function(){ expect(compItem.$data.item.state).toBe(1); }, 300);
+    	//compItem.finishTask(compItem.$data.item);
+        compItem.finishTask(compItem.$data.item).then(()=>{
+            expect(compItem.$data.item.state).toBe(1); 
+            done();
+        },()=>{
+            expect(false).toBe(true);
+            done();
+        });
+    	//setTimeout(function(){ expect(compItem.$data.item.state).toBe(1); }, 300);
  
 	})
 	//it should have a delete event
@@ -29,15 +36,22 @@ describe("task-list",()=>{
     	const ConstructorItem = Vue.extend(taskItem);
     	const compItem = new ConstructorItem({
     		data : {
-    			item : {id:1, text:"sample", state:0},
+    			item : {id:2, text:"sample", state:0},
     			index : 0,
     			state : 0,
     			editable : false
     		}
     	});
     	compItem.$mount();
-    	compItem.deleteItem(compItem.$data.item);
-    	setTimeout(function(){ expect(compItem.$data.item).toBe(null); }, 300);
+        //compItem.deleteItem(compItem.$data.item)
+    	compItem.deleteItem(compItem.$data.item).then(()=>{
+            expect(compItem.$data.item).toBe(null);
+            done();
+        },()=>{
+            expect(false).toBe(true);
+            done();
+        });
+    	//setTimeout(function(){ expect(compItem.$data.item).toBe(null); }, 300);
 
 	}) 
 

@@ -9,3 +9,8 @@
 	*npm run test-front (for running the test of front end using karma and jasmine in chrome browser)
 	*npm run test-back (for running the test of back end using mocha, it needs loopback server on)
 
+v 0.1.0
+	-fixed the promises in app-veu.spec.js and task-item-vue.spec.js
+	-adding more testing with mocha, super test and chai(create, update and delete)
+	-returning promises on the events
+

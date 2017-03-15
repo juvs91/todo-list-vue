@@ -4,18 +4,22 @@ import services from '../client/js/services.js'
 Vue.use(VueResource);
 
 describe("services",()=>{
-	it("should get all items",done=>{
+	it("should get all items",()=>{
 		services.getItems((response)=>{
 			expect(typeof response.body.length).toBe(typeof 0);
+			done();
 		},()=>{
 			expect(true).toBe(false);
+			done();
 		})
 	})
 	it("should get an item",()=>{
 		services.getItem(1,(response)=>{
 			expect(response.body.length).toBe(1);
+			done();
 		},()=>{
 			expect(true).toBe(false);
+			done();
 		})	
 	})
 	it("should update an item",()=>{

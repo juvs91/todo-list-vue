@@ -37,8 +37,9 @@ todoApp.generalFunctions = {
 	createTask(e){
 		if(e.keyCode === 13){
 			let text = e.target.value.trim();
-			services.createItem({"text" : text, "state":0},todoApp.callBacks.successCreateTask.bind(this),todoApp.callBacks.failCreateTask.bind(this));
+			return services.createItem({"text" : text, "state":0},todoApp.callBacks.successCreateTask.bind(this),todoApp.callBacks.failCreateTask.bind(this));
 		}
+		return null;
 	},
 	deleteTask (index){
 	 	this.tasks.splice(index,1);
@@ -50,7 +51,7 @@ todoApp.generalFunctions = {
   		this.state = state;
   	},
   	getAllTasks(){
-  		services.getItems(todoApp.callBacks.successGetAllTasks.bind(this),todoApp.callBacks.failGetAllTasks.bind(this));
+  		return services.getItems(todoApp.callBacks.successGetAllTasks.bind(this),todoApp.callBacks.failGetAllTasks.bind(this));
   	}
 };
 let set = "asdfsad";

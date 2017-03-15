@@ -1,26 +1,23 @@
 <template>
 	<li  class='js_taks' v-show="showItem"> 
 		<span @click='changeTaskToEditable(item)' v-show:editable="!editable"> {{item.text}}</span> 
+		<input type="text" v-show:editable="editable" v-bind:value="item.text" v-on:blur="updateTask">
 		<span v-if="item.state === 0"> doing</span>
 		<span v-if="item.state !== 0"> finished</span>
-		<input type="text" v-show:editable="editable" v-bind:value="item.text" v-on:blur="updateTask">
 		<button class='js_finish' @click='finishTask(item)'>finish</button>   
 		<button class='js_delete' @click='deleteItem(item)'>delete</button> 
 	</li>
 </template>
 <script>
 	import services from '../js/services.js'
-	let taskListTemplate = {};
+	let itemListTemplate = {};
 
-	taskListTemplate.buildTask = (id,state,text)=>{
+	itemListTemplate.buildItem = (id,state,text)=>{
 		return {
 			id:id,
 			state:state,
 			text:text
 		};
-	}
-	taskListTemplate.removeTask = (index)=>{
-		todoApp.vue.$data.tasks.splice(index,1);
 	}
 	let callBacksForTask = {
 		deletedSuccess (){
@@ -30,8 +27,9 @@
 			//print error message
 			console.log("fail deleting the task");
 		},
-		updatedSuccess(){
-			this.item.text  = this.$el.children[1].value
+		updatedSuccess(response){
+			console.log(response.body);
+			this.item.text  = response.body.text;
 			//this.$emit("updateTask",{item : this.item, index : this.index});
 			this.editable = false;
 		},
@@ -52,19 +50,20 @@
 	let eventsForTask = {
 		deleteItem (t){
 			//todo remove the element in the DB and if it's success remove it from DOM
-			services.deleteItem(t.id,callBacksForTask.deletedSuccess.bind(this),callBacksForTask.deletedFail);
+			return services.deleteItem(t.id,callBacksForTask.deletedSuccess.bind(this),callBacksForTask.deletedFail);
 			
 		},
-		updateTask (){
+		updateTask (e){
 			console.log("update");
-			services.updateItem(this.item,callBacksForTask.updatedSuccess.bind(this),callBacksForTask.updatedFail);
+			let task = itemListTemplate.buildItem(this.item.id,1,e.target.value.trim());
+			return services.updateItem(task,callBacksForTask.updatedSuccess.bind(this),callBacksForTask.updatedFail);
 		},
 		changeTaskToEditable(item) {
 			this.editable = true;
 		},
 		finishTask (t) {
-			let task = taskListTemplate.buildTask(t.id,1,t.text.trim());
-			services.updateItem(task,callBacksForTask.finishSuccess.bind(this),callBacksForTask.finishFail);			
+			let task = itemListTemplate.buildItem(t.id,1,t.text.trim());
+			return services.updateItem(task,callBacksForTask.finishSuccess.bind(this),callBacksForTask.finishFail);			
 		}
 	};
 	let computedFunctions = {

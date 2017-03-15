@@ -8564,8 +8564,9 @@ todoApp.generalFunctions = {
   createTask: function createTask(e) {
     if (e.keyCode === 13) {
       var text = e.target.value.trim();
-      _services2.default.createItem({ "text": text, "state": 0 }, todoApp.callBacks.successCreateTask.bind(this), todoApp.callBacks.failCreateTask.bind(this));
+      return _services2.default.createItem({ "text": text, "state": 0 }, todoApp.callBacks.successCreateTask.bind(this), todoApp.callBacks.failCreateTask.bind(this));
     }
+    return null;
   },
   deleteTask: function deleteTask(index) {
     this.tasks.splice(index, 1);
@@ -8580,7 +8581,7 @@ todoApp.generalFunctions = {
     this.state = state;
   },
   getAllTasks: function getAllTasks() {
-    _services2.default.getItems(todoApp.callBacks.successGetAllTasks.bind(this), todoApp.callBacks.failGetAllTasks.bind(this));
+    return _services2.default.getItems(todoApp.callBacks.successGetAllTasks.bind(this), todoApp.callBacks.failGetAllTasks.bind(this));
   }
 };
 var set = "asdfsad";
@@ -8619,7 +8620,7 @@ var _services2 = _interopRequireDefault(_services);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var taskListTemplate = {}; //
+var itemListTemplate = {}; //
 //
 //
 //
@@ -8630,15 +8631,12 @@ var taskListTemplate = {}; //
 //
 //
 
-taskListTemplate.buildTask = function (id, state, text) {
+itemListTemplate.buildItem = function (id, state, text) {
 	return {
 		id: id,
 		state: state,
 		text: text
 	};
-};
-taskListTemplate.removeTask = function (index) {
-	todoApp.vue.$data.tasks.splice(index, 1);
 };
 var callBacksForTask = {
 	deletedSuccess: function deletedSuccess() {
@@ -8648,8 +8646,9 @@ var callBacksForTask = {
 		//print error message
 		console.log("fail deleting the task");
 	},
-	updatedSuccess: function updatedSuccess() {
-		this.item.text = this.$el.children[1].value;
+	updatedSuccess: function updatedSuccess(response) {
+		console.log(response.body);
+		this.item.text = response.body.text;
 		//this.$emit("updateTask",{item : this.item, index : this.index});
 		this.editable = false;
 	},
@@ -8670,18 +8669,19 @@ var callBacksForTask = {
 var eventsForTask = {
 	deleteItem: function deleteItem(t) {
 		//todo remove the element in the DB and if it's success remove it from DOM
-		_services2.default.deleteItem(t.id, callBacksForTask.deletedSuccess.bind(this), callBacksForTask.deletedFail);
+		return _services2.default.deleteItem(t.id, callBacksForTask.deletedSuccess.bind(this), callBacksForTask.deletedFail);
 	},
-	updateTask: function updateTask() {
+	updateTask: function updateTask(e) {
 		console.log("update");
-		_services2.default.updateItem(this.item, callBacksForTask.updatedSuccess.bind(this), callBacksForTask.updatedFail);
+		var task = itemListTemplate.buildItem(this.item.id, 1, e.target.value.trim());
+		return _services2.default.updateItem(task, callBacksForTask.updatedSuccess.bind(this), callBacksForTask.updatedFail);
 	},
 	changeTaskToEditable: function changeTaskToEditable(item) {
 		this.editable = true;
 	},
 	finishTask: function finishTask(t) {
-		var task = taskListTemplate.buildTask(t.id, 1, t.text.trim());
-		_services2.default.updateItem(task, callBacksForTask.finishSuccess.bind(this), callBacksForTask.finishFail);
+		var task = itemListTemplate.buildItem(t.id, 1, t.text.trim());
+		return _services2.default.updateItem(task, callBacksForTask.finishSuccess.bind(this), callBacksForTask.finishFail);
 	}
 };
 var computedFunctions = {
@@ -9017,7 +9017,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.changeTaskToEditable(_vm.item)
       }
     }
-  }, [_vm._v(" " + _vm._s(_vm.item.text))]), _vm._v(" "), (_vm.item.state === 0) ? _c('span', [_vm._v(" doing")]) : _vm._e(), _vm._v(" "), (_vm.item.state !== 0) ? _c('span', [_vm._v(" finished")]) : _vm._e(), _vm._v(" "), _c('input', {
+  }, [_vm._v(" " + _vm._s(_vm.item.text))]), _vm._v(" "), _c('input', {
     directives: [{
       name: "show",
       rawName: "v-show:editable",
@@ -9034,7 +9034,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "blur": _vm.updateTask
     }
-  }), _vm._v(" "), _c('button', {
+  }), _vm._v(" "), (_vm.item.state === 0) ? _c('span', [_vm._v(" doing")]) : _vm._e(), _vm._v(" "), (_vm.item.state !== 0) ? _c('span', [_vm._v(" finished")]) : _vm._e(), _vm._v(" "), _c('button', {
     staticClass: "js_finish",
     on: {
       "click": function($event) {

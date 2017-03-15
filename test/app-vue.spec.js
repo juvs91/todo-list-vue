@@ -84,9 +84,16 @@ describe("todo-app",()=>{
 		input.target = {};
 		input.target.value = "sample";
 		input.keyCode = 13;
-		comp.createTask(input);
-		let elements = comp.$el.getElementsByTagName("li");
-		setTimeout(function(){ expect(elements.length).toBe(3); }, 300);
+		comp.createTask(input).then(()=>{
+			let elements = comp.$el.getElementsByTagName("li");
+            expect(elements.length).toBe(3);
+            done();
+        },()=>{
+            expect(false).toBe(true);
+            done();
+        });
+		//let elements = comp.$el.getElementsByTagName("li");
+		//setTimeout(function(){ expect(elements.length).toBe(3); }, 300);
 
 	})
 	it("should remove a task from the list",()=>{
@@ -115,8 +122,15 @@ describe("todo-app",()=>{
 			}
 		});
 		comp.$mount();
-		comp.getAllTasks();
-		setTimeout(function(){ expect(comp.$data.tasks.length).toBe(comp.$data.tasks.length); }, 300);//need to check the logic 
+		comp.getAllTasks().then(done =>{
+			//let len = comp.$data.tasks.length;
+			expect(comp.$data.tasks.length).toBe(comp.$data.tasks.length);
+            done();
+        },()=>{
+            expect(false).toBe(true);
+            done();
+        });
+		//setTimeout(function(){ expect(comp.$data.tasks.length).toBe(comp.$data.tasks.length); }, 300);//need to check the logic 
 		
 	})
 });
